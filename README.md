@@ -53,9 +53,10 @@ ai-experiment/
 ### Backend
 - Java 21+ (OpenJDK)
 - Spring Boot
+- Swagger Parser (OpenAPI 3)
 - ChromaDB (local mode)
 - Retrieval-Augmented Generation (RAG)
-- Parsing YAML/JSON for OpenAPI v3
+- LLM provider integration (cloud or local)
 
 ### Frontend
 - Node + React  
@@ -63,7 +64,7 @@ ai-experiment/
 
 ## 🔧 Backend Status
 
-A working **Spring Boot backend skeleton** is implemented.
+The backend is currently **up and running** with file upload and OpenAPI parsing.
 
 ### ✔ Running the backend
 
@@ -72,7 +73,7 @@ cd backend
 mvn spring-boot:run
 ```
 
-The backend will start on:
+Available at:
 
 ```
 http://localhost:8080
@@ -85,12 +86,47 @@ GET /api/health
 → "Backend is running"
 ```
 
+### ✔ Upload endpoint (Swagger/OpenAPI files)
+
+```
+POST /api/upload
+Content-Type: multipart/form-data
+```
+
+Accepts:
+- `.yaml`
+- `.yml`
+- `.json`
+
+### ✔ OpenAPI parsing implemented
+
+Uploaded files are parsed into a real OpenAPI model (`io.swagger.v3.oas.models.OpenAPI`).
+
+The backend currently returns:
+
+- API title
+- Version
+- Number of paths
+- Filename
+
+Example response:
+
+```json
+{
+  "file": "example.yml",
+  "title": "Sample API",
+  "version": "1.0",
+  "paths": 1
+}
+```
+
 ### ✔ Current backend structure
 
 ```
 backend/
 ├── pom.xml
 ├── src/main/java/com/ai/experiment/AiExperimentApplication.java
+├── src/main/java/com/ai/experiment/services/OpenApiService.java
 └── src/main/java/com/ai/experiment/controllers/
       ├── HealthController.java
       └── UploadController.java
@@ -98,80 +134,65 @@ backend/
 
 ## 📁 Sample OpenAPI Files
 
-This project includes sample Swagger/OpenAPI specifications located in:
-
 ```
 samples/
 └── example.yml
 ```
 
-> **Note:**  
-> The backend supports `.yaml`, `.yml`, and `.json` formats.  
-> The included example uses the `.yml` extension.
+The backend supports `.yaml`, `.yml`, and `.json`.
+The included example uses `.yml`.
 
 ## 🧪 Testing the Upload Endpoint
 
-Start the backend:
+Start backend:
 
 ```bash
 cd backend
 mvn spring-boot:run
 ```
 
-Then, from the **project root**, run:
+Upload a file (from project root):
 
 ```bash
 curl -F "file=@samples/example.yml" http://localhost:8080/api/upload
 ```
 
-Expected response:
-
-```
-File uploaded successfully.
-```
-
-Using an absolute path also works:
+With absolute path:
 
 ```bash
 curl -F "file=@/full/path/to/ai-experiment/samples/example.yml"      http://localhost:8080/api/upload
 ```
 
----
-
 ## 🤖 LLM Setup: Cloud vs Local (Ollama)
 
-This project supports **two LLM modes**.
+This project supports **two modes** for the analysis step.
 
 ### 1. Cloud LLMs (Recommended)
+
 Examples:
 - Claude 3.5 Sonnet
 - ChatGPT (GPT-4.1, GPT-4o)
 - Gemini / DeepSeek / Groq models
 
 **Pros**
-- Best analysis quality  
-- Fast responses  
-- No installation  
-- Works reliably on any machine  
-- Great for structured API analysis  
+- Best analysis quality
+- Fast responses
+- No installation
+- Works reliably on any machine
 
 **Cons**
-- Requires API key  
-- Internet needed  
-- Cost per token  
-
----
+- Requires API key
+- Internet required
+- Token cost applies
 
 ### 2. Local LLMs via Ollama (Optional)
 
-Runs small LLMs locally and offline.
-
-Supports `.yaml`, `.yml`, `.json` parsing with:
-
+Supports models like:
 - `llama3.2:3b`
 - `mistral:7b-instruct-q4`
 - `llama3.1:8b-q4`
 
+Good for offline experiments.
 
 ## 🚀 Getting Started
 
@@ -185,15 +206,12 @@ Supports `.yaml`, `.yml`, `.json` parsing with:
 | ChromaDB | 0.5.x | `chroma --version` |
 | Git | Latest | `git --version` |
 
----
-
 ### 2. Clone the Repository
 
 ```bash
 git clone https://github.com/<your-org>/ai-experiment.git
 cd ai-experiment
 ```
-
 
 ## 🔍 How the Analysis Works
 
@@ -206,23 +224,21 @@ cd ai-experiment
    - Builds an LLM prompt using RAG context
    - Receives a structured analysis
 4. Frontend displays:
-   - Guideline violations  
-   - Improvement suggestions  
-   - A readable analysis report  
-
+   - Guideline violations
+   - Improvement suggestions
+   - A readable analysis report
 
 ## 📌 Notes & Limitations
 
 - This is an **educational experiment**, not a production tool.
-- Only **public** API documentation or generic guidelines are allowed.
+- Only public API documentation or generic guidelines are allowed.
 - No proprietary/internal Swagger files should be uploaded.
-- Performance and scalability are intentionally out of scope.
-
+- Performance and scalability are intentionally simplified.
 
 ## 🔮 Future Ideas
 
-- Auto-fix proposals  
-- Swagger version diffing  
-- Rule plugin system  
-- Export analysis reports  
-- Pre-validation with strict OpenAPI validators  
+- Auto-fix proposals
+- Swagger version diffing
+- Rule plugin system
+- Export analysis reports
+- Pre-validation with strict OpenAPI validators

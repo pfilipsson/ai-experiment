@@ -37,6 +37,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- To parse yml, yaml and json files -->
+        <dependency>
+            <groupId>io.swagger.parser.v3</groupId>
+            <artifactId>swagger-parser-v3</artifactId>
+            <version>2.1.22</version>
+        </dependency>
+
     </dependencies>
 
     <build>
