@@ -4,8 +4,7 @@ This project is an **experimental learning initiative** for exploring how to use
 AI, RAG (Retrieval-Augmented Generation), and automated code analysis to
 evaluate **Swagger/OpenAPI specifications** against a set of **API guideline rules**.
 
-The purpose is **learning**, not production readiness.
-
+The purpose is **learning**, not production readiness.  
 
 ## 🎯 Goals
 
@@ -20,7 +19,6 @@ The purpose is **learning**, not production readiness.
 - Use only **public** documentation or generic API principles
 - Build something end-to-end in a short timeframe
 - Focus on **learning modern AI tooling**
-
 
 ## 🏗 Project Architecture
 
@@ -45,7 +43,7 @@ ai-experiment/
 │
 ├── samples/                # Example Swagger/OpenAPI specs
 │   ├── public-api.yaml
-│   └── example.yaml
+│   └── example.yml
 │
 └── README.md
 ```
@@ -63,10 +61,9 @@ ai-experiment/
 - Node + React  
 - UI for uploading Swagger files and viewing results  
 
+## 🔧 Backend Status
 
-## 🔧 Backend Status (Added)
-
-A working **Spring Boot backend skeleton** is now implemented.
+A working **Spring Boot backend skeleton** is implemented.
 
 ### ✔ Running the backend
 
@@ -94,10 +91,50 @@ GET /api/health
 backend/
 ├── pom.xml
 ├── src/main/java/com/ai/experiment/AiExperimentApplication.java
-└── src/main/java/com/ai/experiment/controllers/HealthController.java
+└── src/main/java/com/ai/experiment/controllers/
+      ├── HealthController.java
+      └── UploadController.java
 ```
 
-This is the foundation where Swagger parsing, RAG logic, and LLM evaluation will be added later.
+## 📁 Sample OpenAPI Files
+
+This project includes sample Swagger/OpenAPI specifications located in:
+
+```
+samples/
+└── example.yml
+```
+
+> **Note:**  
+> The backend supports `.yaml`, `.yml`, and `.json` formats.  
+> The included example uses the `.yml` extension.
+
+## 🧪 Testing the Upload Endpoint
+
+Start the backend:
+
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+Then, from the **project root**, run:
+
+```bash
+curl -F "file=@samples/example.yml" http://localhost:8080/api/upload
+```
+
+Expected response:
+
+```
+File uploaded successfully.
+```
+
+Using an absolute path also works:
+
+```bash
+curl -F "file=@/full/path/to/ai-experiment/samples/example.yml"      http://localhost:8080/api/upload
+```
 
 ---
 
@@ -123,53 +160,17 @@ Examples:
 - Internet needed  
 - Cost per token  
 
-**Recommended as the default mode.**
-
 ---
 
-### 2. Local LLMs via Ollama (Optional Learning Mode)
+### 2. Local LLMs via Ollama (Optional)
 
 Runs small LLMs locally and offline.
 
-Works on a 2017 Intel Mac with models like:
+Supports `.yaml`, `.yml`, `.json` parsing with:
+
 - `llama3.2:3b`
 - `mistral:7b-instruct-q4`
 - `llama3.1:8b-q4`
-
-**Pros**
-- Free  
-- 100% offline  
-- Great for learning RAG internals  
-
-**Cons**
-- Slow on older Intel Macs  
-- Weaker reasoning  
-- Big models won’t run (13B+)  
-
-**Best for experimentation, not for final analysis.**
-
----
-
-### 🔧 Configuration
-
-In `application.properties`:
-
-```
-llm.mode=cloud   # or: local
-llm.provider=claude
-ollama.model=mistral:7b-instruct-q4
-```
-
----
-
-### 📝 Recommendation
-
-| Goal | Mode |
-|------|------|
-| Best quality | **Cloud** |
-| Learn local inference | **Ollama** |
-| Compare strengths | **Try both** |
-| On 2017 Intel Mac | **Cloud strongly recommended** |
 
 
 ## 🚀 Getting Started
@@ -193,17 +194,16 @@ git clone https://github.com/<your-org>/ai-experiment.git
 cd ai-experiment
 ```
 
----
 
 ## 🔍 How the Analysis Works
 
-1. Rule documents in `/rules/` are embedded and stored in ChromaDB.
-2. User uploads a Swagger/OpenAPI spec through the frontend UI.
+1. Rule documents in `/rules/` are embedded into ChromaDB.
+2. User uploads a Swagger/OpenAPI spec through the frontend.
 3. Backend:
    - Parses YAML or JSON
-   - Extracts operations, schemas, and paths
+   - Extracts operations, schemas, paths
    - Retrieves relevant rules via vector search
-   - Builds an LLM prompt with context
+   - Builds an LLM prompt using RAG context
    - Receives a structured analysis
 4. Frontend displays:
    - Guideline violations  
@@ -214,9 +214,9 @@ cd ai-experiment
 ## 📌 Notes & Limitations
 
 - This is an **educational experiment**, not a production tool.
-- Only **public** API documentation or generic guideline material should be used.
-- No proprietary or internal files should be uploaded.
-- Performance, scalability, and security are intentionally out of scope.
+- Only **public** API documentation or generic guidelines are allowed.
+- No proprietary/internal Swagger files should be uploaded.
+- Performance and scalability are intentionally out of scope.
 
 
 ## 🔮 Future Ideas
@@ -224,5 +224,5 @@ cd ai-experiment
 - Auto-fix proposals  
 - Swagger version diffing  
 - Rule plugin system  
-- PDF/Markdown export of reports  
-- Pre-validation using strict OpenAPI validators  
+- Export analysis reports  
+- Pre-validation with strict OpenAPI validators  
