@@ -20,6 +20,24 @@ The purpose is **learning**, not production readiness.
 - Build something end-to-end in a short timeframe
 - Focus on **learning modern AI tooling**
 
+## Implementation Steps
+
+- ✅ Set up backend (Spring Boot skeleton, health check, upload endpoint) 
+- ✅ Add Swagger/OpenAPI parsing for .yaml, .yml, .json
+- ❌ Extract basic metadata (title, version, paths, operations)
+- ❌ Create /rules folder and add initial guideline documents
+- ❌ Embed rule documents and store them in ChromaDB
+- ❌ Implement vector search to retrieve the most relevant rules
+- ❌ Add support for calling an LLM (cloud first, Ollama optional)
+- ❌ Build prompt combining: API metadata + retrieved rules
+- ❌ Generate structured analysis (issues, warnings, improvements)
+- ❌ Implement a simple React UI for uploading files and showing results
+- ❌ End-to-end flow: upload → parse → RAG → LLM → display
+- ❌ Optional stretch goals (if time allows):
+    - ❌ auto-fix suggestions
+    - ❌ API diffing
+    - ❌ export results
+
 ## 🏗 Project Architecture
 
 ```text
