@@ -61,8 +61,45 @@ ai-experiment/
 
 ### Frontend
 - Node + React  
-- UI for uploading Swagger files and viewing results
+- UI for uploading Swagger files and viewing results  
 
+
+## 🔧 Backend Status (Added)
+
+A working **Spring Boot backend skeleton** is now implemented.
+
+### ✔ Running the backend
+
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+The backend will start on:
+
+```
+http://localhost:8080
+```
+
+### ✔ Health check endpoint
+
+```
+GET /api/health
+→ "Backend is running"
+```
+
+### ✔ Current backend structure
+
+```
+backend/
+├── pom.xml
+├── src/main/java/com/ai/experiment/AiExperimentApplication.java
+└── src/main/java/com/ai/experiment/controllers/HealthController.java
+```
+
+This is the foundation where Swagger parsing, RAG logic, and LLM evaluation will be added later.
+
+---
 
 ## 🤖 LLM Setup: Cloud vs Local (Ollama)
 
@@ -189,4 +226,3 @@ cd ai-experiment
 - Rule plugin system  
 - PDF/Markdown export of reports  
 - Pre-validation using strict OpenAPI validators  
-
