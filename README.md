@@ -176,6 +176,12 @@ Upload a file (from project root):
 curl -F "file=@samples/example.yml" http://localhost:8080/api/upload
 ```
 
+Summarize a file (from *backend* root):
+
+```bash
+curl -F "file=@../samples/PaymentInitiation.json" http://localhost:8080/api/summary
+```
+
 With absolute path:
 
 ```bash

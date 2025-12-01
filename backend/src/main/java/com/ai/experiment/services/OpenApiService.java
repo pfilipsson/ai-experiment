@@ -2,6 +2,7 @@ package com.ai.experiment.services;
 
 import com.ai.experiment.dto.OpenApiMetadata;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import java.io.File;
@@ -20,7 +21,7 @@ public class OpenApiService {
     this.chatClient = ChatClient.builder(chatModel).build();
   }
 
-  public OpenApiMetadata parseFile(File file) throws JsonProcessingException {
+  public OpenApiMetadata parseFile(File file) {
     OpenAPI openAPI = new OpenAPIV3Parser().read(file.getAbsolutePath());
 
     if (openAPI == null) {
@@ -59,12 +60,17 @@ public class OpenApiService {
               });
     }
 
-    String json = io.swagger.v3.core.util.Json.mapper().writeValueAsString(openAPI);
+    String json;
+    try {
+      json = Json.mapper().writeValueAsString(openAPI);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
 
     return new OpenApiMetadata(file.getName(), title, version, pathCount, operations, json);
   }
 
-  public String sendQueryToChatClient(OpenApiMetadata metadata) {
+  public String analyzeAndSummarizeApi(OpenApiMetadata metadata) {
     return chatClient
         .prompt("Generate a summary for the following OpenAPI specification: " + metadata.content())
         .call()

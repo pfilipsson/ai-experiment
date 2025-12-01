@@ -1,0 +1,2595 @@
+{
+  "components": {
+    "parameters": {
+      "Authorization": {
+        "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+        "in": "header",
+        "name": "Authorization",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-Accept": {
+        "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\"",
+        "in": "header",
+        "name": "PSU-Accept",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-Accept-Charset": {
+        "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"ISO-8859-1\"",
+        "in": "header",
+        "name": "PSU-Accept-Charset",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-Accept-Encoding": {
+        "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"gzip, deflate\"",
+        "in": "header",
+        "name": "PSU-Accept-Encoding",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-Accept-Language": {
+        "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"en-US,en;q=0.9,sv;q=0.8\"",
+        "in": "header",
+        "name": "PSU-Accept-Language",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-Corporate-ID": {
+        "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+        "in": "header",
+        "name": "PSU-Corporate-Id",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-Device-ID": {
+        "description": "Provide this value to improve Risk Scoring. UUID (Universally Unique Identifier) for a device, which is used by the PSU, if available. Example value \"05a18f38-c218-4d1c-a9d0-ac36763580e1\"",
+        "in": "header",
+        "name": "PSU-Device-ID",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-Geo-Location": {
+        "description": "Provide this value to improve Risk Scoring. The forwarded Geo Location of the corresponding HTTP request between PSU and TPP if available. See RFC2426. Example value \"GEO:52.506931,13.144558\"",
+        "in": "header",
+        "name": "PSU-Geo-Location",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-Http-Method": {
+        "description": "Provide this value to improve Risk Scoring. HTTP method used at the PSU – TPP interface, if available. Example value \"POST\"",
+        "in": "header",
+        "name": "PSU-Http-Method",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-ID": {
+        "description": "Send in an expected user-id to verify that the used Authorization token matches the user expected. Can be set to 10 or 12 digit personal number, or a 6 digit XID",
+        "in": "header",
+        "name": "PSU-ID",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-ID-Type": {
+        "description": "Checks if the correct type of user is checked in. PERSNR checks that PSU is logged in using a personal number (can still be either private or corporate user), whereas XID checks that a SEB corporate user is logged in using an SEB specific ID",
+        "in": "header",
+        "name": "PSU-ID-Type",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-IP-Address": {
+        "description": "The IP Address of the PSU, as determined in the communication between PSU and TPP, must be provided when POST'ing a payment or authorisation. During other calls supply the value if applicable. Provided in either IPv4 or IPv6 format. Example value \"129.178.88.88\"",
+        "in": "header",
+        "name": "PSU-IP-Address",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-IP-Port": {
+        "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"8080\"",
+        "in": "header",
+        "name": "PSU-IP-Port",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "PSU-User-Agent": {
+        "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36\"",
+        "in": "header",
+        "name": "PSU-User-Agent",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "TPP-Redirect-URI": {
+        "description": "Customer must be redirected to this url after payment authorization is completed. Example value \"https://www.seb.se\"",
+        "in": "header",
+        "name": "TPP-Redirect-URI",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "X-Request-ID": {
+        "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+        "in": "header",
+        "name": "X-Request-ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "accept": {
+        "description": "Accepted content types.",
+        "in": "header",
+        "name": "Accept",
+        "required": true,
+        "schema": {
+          "enum": [
+            "application/json"
+          ],
+          "type": "string"
+        }
+      },
+      "authorisationId": {
+        "description": "id of the authorization resource",
+        "in": "path",
+        "name": "authorisationId",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "basketId": {
+        "description": "id of the basket resource",
+        "in": "path",
+        "name": "basketId",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "paymentId": {
+        "description": "id of the payment initation",
+        "in": "path",
+        "name": "paymentId",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "paymentProduct": {
+        "description": "Describes which payment product this call is in reference to. Needs to match whichever payment you are requesting information for. Example value \"swedish-domestic-private-bankgiros\"",
+        "in": "path",
+        "name": "paymentProduct",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "requestBodies": {
+      "paymentInstruction": {
+        "content": {
+          "*/*": {
+            "schema": {
+              "$ref": "#/components/schemas/paymentInstruction"
+            }
+          }
+        },
+        "description": "Payment instruction containing information about the payment.",
+        "required": true
+      },
+      "selectScaMethod": {
+        "content": {
+          "*/*": {
+            "schema": {
+              "$ref": "#/components/schemas/selectScaMethod"
+            }
+          }
+        },
+        "description": "Json object containing value for selected authentication method.",
+        "required": true
+      },
+      "signingBasketRequest": {
+        "content": {
+          "*/*": {
+            "schema": {
+              "$ref": "#/components/schemas/signingBasketRequest"
+            }
+          }
+        },
+        "description": "Object containing array of paymentIds",
+        "required": true
+      }
+    },
+    "schemas": {
+      "authorisationResponse": {
+        "description": "Describes an authorization-resource.",
+        "properties": {
+          "_links": {
+            "properties": {
+              "scaRedirect": {
+                "properties": {
+                  "href": {
+                    "description": "Redirect link to finish signing with Digipass",
+                    "example": "https://notreal.sebgroup.com/pss?authorisationId={authorisationId}",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "self": {
+                "description": "Relative path to the endpoint to see the created authorization resource",
+                "properties": {
+                  "href": {
+                    "description": "Relative URL to resource",
+                    "example": "/signing-baskets/{basketId}/authorisations/{authorisationId}",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "authorisationId": {
+            "description": "GUID, reference to specific authorization resource",
+            "example": "ad155467-1505-41c9-9158-bc1811fc632b",
+            "type": "string"
+          },
+          "basketId": {
+            "description": "GUID, reference to the signing basket that is related to this authorisation.",
+            "example": "c57297dc-fa74-4cad-a328-40258ae7976f",
+            "type": "string"
+          },
+          "chosenScaMethod": {
+            "$ref": "#/components/schemas/scaMethod"
+          },
+          "paymentIds": {
+            "example": [
+              "STOHYD01231026103325134950000001"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "psuMessage": {
+            "description": "Message for the Payment Signing User, included if an action needs to be taken by the user during a pending signing.",
+            "example": "Öppna Mobilt BankID app",
+            "type": "string"
+          },
+          "qrData": {
+            "description": "The value should be rendered as a QR code, which the PSU will scan to initiate the signing using bankid.",
+            "example": "bankid.56029ee9-52c0-4a5b-9bf8-24e557b95480.0.efcf9d4e4475002081d09e4d3c69a0ef1ec56433a32efdf23e57d41e708a5c92",
+            "type": "string"
+          },
+          "scaStatus": {
+            "description": "Describes the status of the authorization event.\nscaMethodSelected ->  indicates that no events have taken place since creating the authorization, received -> Authorization is created, but not ready to be signed yet, started -> Signing is initialized and the PSU should sign, finalized -> Signing has finished successfully, canceled -> The PSU chose to cancel the signing operation, failed -> Signing has ended unsuccessfully",
+            "enum": [
+              "scaMethodSelected",
+              "received",
+              "started",
+              "finalized",
+              "canceled",
+              "failed"
+            ],
+            "type": "string"
+          },
+          "tppMessages": {
+            "description": "Message for the Third Party Provider, e.g. if an action needs to be taken by the user during a pending signing.",
+            "items": {
+              "example": "Customer must open Mobile BankId application",
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "cancelPaymentStatus": {
+        "properties": {
+          "_links": {
+            "properties": {
+              "status": {
+                "description": "Relative path to the endpoint to see the status of the payment initiation",
+                "properties": {
+                  "href": {
+                    "description": "Relative URL to resource",
+                    "example": "/payments/sepa-credit-transfers/STOHYD01180208082256128737000001/status",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "transactionStatus": {
+            "description": "Contains the current status description of the payment.",
+            "enum": [
+              "RCVD",
+              "ACTC",
+              "CANC",
+              "RJCT"
+            ],
+            "example": "ACTC",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "error": {
+        "description": "When contacting customer support, please provide entire error structure.",
+        "properties": {
+          "code": {
+            "description": "Message code to explain the nature of the underlying error.",
+            "example": "RESOURCE_UNKNOWN",
+            "type": "string"
+          },
+          "detail": {
+            "description": "Detailed human readable text specific to this instance of the error.",
+            "example": "Debit account not found",
+            "type": "string"
+          },
+          "title": {
+            "description": "Short human readable description of error type.",
+            "example": "The addressed resource is unknown relative to the TPP.",
+            "type": "string"
+          },
+          "type": {
+            "description": "A URI reference that identifies the problem type.",
+            "example": "https://berlingroup.com/error-codes/RESOURCE_UNKNOWN",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "listAuthorisationsResponse": {
+        "description": "Array of all authorisationId GUIDs associated with a payment.",
+        "properties": {
+          "authorisationIds": {
+            "items": {
+              "description": "GUID, reference to specific authorization resource",
+              "example": "ad155467-1505-41c9-9158-bc1811fc632b",
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "paymentInstruction": {
+        "description": "Instruction for a payment type, fields are relevant only for specific payment types this should be checked in the template service.",
+        "properties": {
+          "bankCharges": {
+            "description": "See specific payment types.",
+            "type": "string"
+          },
+          "categoryPurpose": {
+            "description": "Value to be used to determine if the payment is a Split payment (VATX) or a Tax payment (TAXS)",
+            "type": "string"
+          },
+          "chargeBearer": {
+            "description": "Charge sharing instructions for corporate payments.",
+            "example": "DEBT",
+            "type": "string"
+          },
+          "creditorAccount": {
+            "description": "Conditional, only one of the properties may be used.",
+            "properties": {
+              "bban": {
+                "example": "52800025220",
+                "type": "string"
+              },
+              "bgnr": {
+                "example": "0001212121",
+                "type": "string"
+              },
+              "iban": {
+                "example": "SE8050000000052800025220",
+                "type": "string"
+              },
+              "pgnr": {
+                "example": "44580264",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "creditorAccountMessage": {
+            "description": "A message shown on creditor account statement. Only usable with some payment products.",
+            "example": "Text to you",
+            "type": "string"
+          },
+          "creditorAddress": {
+            "description": "Address fields can be added for some payment types. See each individual template.",
+            "properties": {
+              "city": {
+                "example": "Stockholm",
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "postalCode": {
+                "example": "BE19271",
+                "type": "string"
+              },
+              "street": {
+                "example": "The Svedberg street 9999",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "creditorAgentBic": {
+            "example": "ESSESSESSXXX",
+            "type": "string"
+          },
+          "creditorAgentOther": {
+            "properties": {
+              "clearingSystemId": {
+                "example": "GBDSC",
+                "type": "string"
+              },
+              "memberId": {
+                "example": "404865",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "creditorDetails": {
+            "description": "See specific payment types.",
+            "type": "object"
+          },
+          "debtorAccount": {
+            "properties": {
+              "bban": {
+                "description": "Debtor account number in BBAN format, only for corporate payments.",
+                "example": "52800025220",
+                "type": "string"
+              },
+              "iban": {
+                "description": "Debtor account number in IBAN format",
+                "example": "SE8050000000052800025220",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "debtorAccountMessage": {
+            "description": "A message shown on debtor account statement, max length depending on payment product",
+            "example": "Text for my payment",
+            "type": "string"
+          },
+          "debtorAgentBic": {
+            "example": "DEUTDEFFXXX",
+            "type": "string"
+          },
+          "debtorReceipt": {
+            "description": "Receipt can be requested for some payment types.",
+            "type": "boolean"
+          },
+          "endToEndIdentification": {
+            "type": "string"
+          },
+          "instructedAmount": {
+            "properties": {
+              "amount": {
+                "example": "345.50",
+                "type": "string"
+              },
+              "currency": {
+                "example": "SEK",
+                "type": "string"
+              },
+              "equivalentAmount": {
+                "description": "Amount in SEK for non SEK account",
+                "example": "",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "instructionId": {
+            "description": "All fields after this are only relevant to corporate payments. The remitters own reference which will be stated in the transaction reporting by the bank in order to identify the transaction. It will not be forwarded to the beneficiary.",
+            "example": "Payment info",
+            "type": "string"
+          },
+          "intermediaryAgentBic": {
+            "example": "DEUTDEFFXXX",
+            "type": "string"
+          },
+          "regulatoryReporting": {
+            "items": {
+              "properties": {
+                "debitCreditReportingIndicator": {
+                  "example": "DEBT",
+                  "type": "string"
+                },
+                "reportingCode": {
+                  "type": "string"
+                },
+                "reportingInformation": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "remittanceInformationStructured": {
+            "description": "Used for OCR with bankgiro and postgiro or SCOR with SEPA payments. If you provide this then omit remittanceInformationUnstructured.",
+            "properties": {
+              "reference": {
+                "description": "The structured remittance reference number for the payment.",
+                "example": "234634699",
+                "type": "string"
+              },
+              "referenceType": {
+                "description": "Type of reference number.",
+                "enum": [
+                  "OCR",
+                  "SCOR"
+                ],
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "remittanceInformationUnstructured": {
+            "description": "Message field to creditor.",
+            "example": "Liten drake",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "requestedExecutionDate": {
+            "description": "Requested execution date of transaction in format yyyy-mm-dd. If the date is not a valid bank date for the payment product, then the payment will be rejected.",
+            "example": "2018-02-12T00:00:00.000Z",
+            "type": "string"
+          },
+          "templateId": {
+            "description": "Optional field in input. If provided it needs to match product in path.",
+            "example": "swedish-domestic-private-bankgiros",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "paymentPayload": {
+        "properties": {
+          "_links": {
+            "properties": {
+              "status": {
+                "description": "Relative path to the endpoint to see the status of the payment initiation",
+                "properties": {
+                  "href": {
+                    "description": "Relative URL to resource",
+                    "example": "/payments/sepa-credit-transfers/STOHYD01180208082256128737000001/status",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "chosenScaMethod": {
+            "description": "The selected Strong Customer Authentication method. This is shown after a SCA method has been selected.",
+            "properties": { },
+            "type": "object"
+          },
+          "creditorAccount": {
+            "description": "Conditional, only a single property is set.",
+            "properties": {
+              "bban": {
+                "example": "52800025220",
+                "type": "string"
+              },
+              "bgnr": {
+                "example": "0001212121",
+                "type": "string"
+              },
+              "iban": {
+                "example": "SE8050000000052800025220",
+                "type": "string"
+              },
+              "pgnr": {
+                "example": "44580264",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "creditorAccountMessage": {
+            "description": "A message shown on creditor account statement. Only usable with some payment products.",
+            "example": "Text to you",
+            "type": "string"
+          },
+          "creditorName": {
+            "description": "Name of pre registered creditor, needed for specific types of international payments.",
+            "example": "Creditor Namesson",
+            "type": "string"
+          },
+          "debtorAccount": {
+            "properties": {
+              "iban": {
+                "description": "Debtor account number in IBAN format",
+                "example": "SE8050000000052800025220",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "debtorAccountMessage": {
+            "description": "A message shown on debtor account statement.",
+            "example": "Text for my payment",
+            "type": "string"
+          },
+          "instructedAmount": {
+            "properties": {
+              "amount": {
+                "example": 345.5,
+                "type": "number"
+              },
+              "currency": {
+                "example": "SEK",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "paymentId": {
+            "description": "The id that SEB creates for the payment",
+            "example": "STOHYD01180208082256128737000001",
+            "type": "string"
+          },
+          "remittanceInformationStructured": {
+            "description": "Used for OCR with bankgiro and postgiro.",
+            "properties": {
+              "reference": {
+                "description": "The structured remittance reference number for the payment.",
+                "example": "234634699",
+                "type": "string"
+              },
+              "referenceType": {
+                "description": "Type of reference number.",
+                "enum": [
+                  "OCR"
+                ],
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "remittanceInformationUnstructured": {
+            "description": "Message field to creditor.",
+            "example": "Liten drake",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "requestedExecutionDate": {
+            "description": "Requested execution date of transaction in format yyyy-mm-dd. If the date is not a valid bank date for the payment product, then the payment will be rejected.",
+            "example": "2018-02-12T00:00:00.000Z",
+            "type": "string"
+          },
+          "templateId": {
+            "description": "The templateId supplied at payment creation.",
+            "example": "swedish-domestic-private-bankgiros",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "paymentStatus": {
+        "properties": {
+          "_links": {
+            "properties": {
+              "startAuthorisationWithAuthenticationMethodSelection": {
+                "description": "Relative path to the endpoint for selection of authentication method (using POST). Included only for payments without a set method.",
+                "properties": {
+                  "href": {
+                    "description": "Relative URL to resource",
+                    "example": "/payments/swedish-domestic-private-bankgiros/STOHYD01180208082256128737000001/authorisations",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "chosenScaMethod": {
+            "description": "The selected Strong Customer Authentication method. This is shown after a SCA method has been selected.",
+            "properties": { },
+            "type": "object"
+          },
+          "psuMessage": {
+            "description": "Message for the Payment Signing User, included if an action needs to be taken by the user during a pending signing.",
+            "example": "Öppna Mobilt BankID app",
+            "type": "string"
+          },
+          "scaMethods": {
+            "description": "Array containing names of available Strong Customer Authentication methods. These are only shown until a method is selected for a payment.",
+            "items": {
+              "$ref": "#/components/schemas/scaMethod"
+            },
+            "type": "array"
+          },
+          "scaStatus": {
+            "description": "Describes the status of an ongoing authorization event linked to this payment, this will not be displayed for finalised or failed authorisations.\nscaMethodSelected ->  indicates that no events have taken place since creating the authorization, received -> Authorization is created, but not ready to be signed yet, started -> Signing is initialized and the PSU should sign, finalized -> Signing has finished succesfully, failed -> Signing has ended unsucessfully",
+            "enum": [
+              "scaMethodSelected",
+              "received",
+              "started",
+              "finalized",
+              "failed"
+            ],
+            "type": "string"
+          },
+          "tppMessages": {
+            "description": "Message for the Third Party Provider, e.g. if an action needs to be taken by the user during a pending signing or an error message.",
+            "items": {
+              "example": "Customer must open Mobile BankId application",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "transactionStatus": {
+            "description": "Contains the current status description of the payment.",
+            "enum": [
+              "RCVD",
+              "ACTC",
+              "CANC",
+              "RJCT"
+            ],
+            "example": "ACTC",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "resetResponse": {
+        "description": "Response to a reset request for the mock.",
+        "properties": {
+          "resultMessage": {
+            "description": "Human readable result of reset.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "scaMethod": {
+        "properties": {
+          "authenticationMethodId": {
+            "description": "Authentication method, this value should be sent as an input parameter to select SCA method.",
+            "example": "mobiltbankid",
+            "type": "string"
+          },
+          "authenticationType": {
+            "description": "Berlin group authentication type definition",
+            "type": "string"
+          },
+          "explanation": {
+            "description": "Used to provide end-to-end identification for \"sepa-credit-transfers\" only.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Casual name of method.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "selectScaMethod": {
+        "properties": {
+          "authenticationMethodId": {
+            "description": "Field with the correct SCA method to use for payment. Equivalent to authenticationMethodId field of SCAMethod shown.",
+            "example": "mobiltbankid",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "signingBasketRequest": {
+        "properties": {
+          "paymentIds": {
+            "description": "Array of paymentIds to include in the basket. If any of the payments are not signable the creation will be rejected.",
+            "example": [
+              "STOHYD01231026103325134950000001"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "signingBasketResponse": {
+        "properties": {
+          "_links": {
+            "properties": {
+              "self": {
+                "description": "Relative path to the endpoint to see the created signing basket",
+                "properties": {
+                  "href": {
+                    "description": "Relative URL to resource",
+                    "example": "/signing-baskets/{basketId}",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "startAuthorisationWithAuthenticationMethodSelection": {
+                "description": "Relative path to the endpoint where an authorization can be initiated.",
+                "properties": {
+                  "href": {
+                    "description": "Relative URL to resource",
+                    "example": "/signing-baskets/{basketId}/authorisations",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "basketId": {
+            "description": "GUID, resource ID of the basket.",
+            "example": "c57297dc-fa74-4cad-a328-40258ae7976f",
+            "type": "string"
+          },
+          "paymentIds": {
+            "description": "Array of paymentIds in the created basket.",
+            "example": [
+              "STOHYD01231026103325134950000001"
+            ],
+            "items": {
+              "description": "Array of paymentIds",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "scaMethods": {
+            "description": "Array of available signing methods. Please use the authenticationMethodIdId as input to the signing.",
+            "items": {
+              "$ref": "#/components/schemas/scaMethod"
+            },
+            "type": "array"
+          },
+          "transactionStatus": {
+            "description": "Lowest status of any payment in the basket. Baskets with a status oc RJCT or ACTC can not be used to initialize an authorization.",
+            "enum": [
+              "RJCT",
+              "RCVD",
+              "ACTC"
+            ],
+            "example": "RCVD",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2": {
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://id.seb.se/tpp/mbid",
+            "scopes": {
+              "payments": "Payment initiation access"
+            },
+            "tokenUrl": "https://tpp-api.seb.se/mga/sps/oauth/oauth20/token"
+          }
+        },
+        "type": "oauth2"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "name": "SEB Developer Portal",
+      "url": "https://developer.sebgroup.com/support/get-support"
+    },
+    "description": "Api for handling linked authentications",
+    "termsOfService": "https://sebgroup.com/site-assistance/legal-notice",
+    "title": "Payment Initiation",
+    "version": "8.0.0"
+  },
+  "openapi": "3.0.1",
+  "paths": {
+    "/payments/mock/resetall": {
+      "patch": {
+        "description": "This endpoint exists ONLY in the Sandbox environment, there is no production equivalent. Deletes any created transactions in the mock, making funds available for further testing. A call to this endpoint removes all such entitys associated with provided authorisation, for all mock-users.",
+        "parameters": [
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/resetResponse"
+                }
+              }
+            },
+            "description": "A message for succesfull reset.",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Sandbox only; Reset all mock transactions and authorisations for all users."
+      }
+    },
+    "/payments/{paymentProduct}": {
+      "post": {
+        "description": "Creates a payment initiation from the provided information.\nCorporate payment initiations can only be performed if the \"PSU-Corporate-Id\" header is set.\nIn production the call also needs to come from a corporate TPP client-id.\nThe payment API accepts different kinds of payment instructions.\nTemplates are used to help the consumer to select the right payment product and they can be retrieved from the templates API.\nAccess the template list endpoint to find all the supported payment products, 'GET /templates'.\nNote that the debtor account (sender) for private payments is always an IBAN and the creditor account type is dependent on the selected template (payment product).\nThe available debtor accounts can either be obtained from the customer or by using the accounts API.\n\nThe \"Location\" header of the response will contain the URL pointing to the newly created resource.\n'Location → /payments/swedish-domestic-private-credit-transfers/STOHYD01180208082256128737000001'\nThe response will also include the paymentId as a field in the body.\n\nDuring the payment initiation the payment systems will process the payment data asynchronously.\nThe client must continuously check the status of the payment to make sure that the payment is ready for the next step in the payment process.\n\nTransfers between customers own accounts will be processed directly and queued for execution on the requested execution-date.\nOther payments must be signed by the customer (e.g. through Mobilt BankID) before the payment is executed.\nSigning can be initiated once the associated authentication link is visible in the status endpoint.\nThe payments can either be signed one by one by creating an authorisations sub-resource under the payment; or multiple payments\ncan be signed at once by creating a signing basket (with a group of payment ids) and then creating an authorisations sub-resource\nunder the signing basket.\n\n\nSandbox environment; the mock will reset all data each sunday at midnight, a customer can also reset their own data by calling the reset endpoint.",
+        "parameters": [
+          {
+            "description": "Describes which payment product this call is in reference to. Needs to match whichever payment you are requesting information for. Example value \"swedish-domestic-private-bankgiros\"",
+            "in": "path",
+            "name": "paymentProduct",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The IP Address of the PSU, as determined in the communication between PSU and TPP, must be provided when POST'ing a payment or authorisation. During other calls supply the value if applicable. Provided in either IPv4 or IPv6 format. Example value \"129.178.88.88\"",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Send in an expected user-id to verify that the used Authorization token matches the user expected. Can be set to 10 or 12 digit personal number, or a 6 digit XID",
+            "in": "header",
+            "name": "PSU-ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Checks if the correct type of user is checked in. PERSNR checks that PSU is logged in using a personal number (can still be either private or corporate user), whereas XID checks that a SEB corporate user is logged in using an SEB specific ID",
+            "in": "header",
+            "name": "PSU-ID-Type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"8080\"",
+            "in": "header",
+            "name": "PSU-IP-Port",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36\"",
+            "in": "header",
+            "name": "PSU-User-Agent",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. The forwarded Geo Location of the corresponding HTTP request between PSU and TPP if available. See RFC2426. Example value \"GEO:52.506931,13.144558\"",
+            "in": "header",
+            "name": "PSU-Geo-Location",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8\"",
+            "in": "header",
+            "name": "PSU-Accept",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"ISO-8859-1\"",
+            "in": "header",
+            "name": "PSU-Accept-Charset",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"gzip, deflate\"",
+            "in": "header",
+            "name": "PSU-Accept-Encoding",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. The forwarded header field of the HTTP request between PSU and TPP, if available. Example value \"en-US,en;q=0.9,sv;q=0.8\"",
+            "in": "header",
+            "name": "PSU-Accept-Language",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. HTTP method used at the PSU – TPP interface, if available. Example value \"POST\"",
+            "in": "header",
+            "name": "PSU-Http-Method",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Provide this value to improve Risk Scoring. UUID (Universally Unique Identifier) for a device, which is used by the PSU, if available. Example value \"05a18f38-c218-4d1c-a9d0-ac36763580e1\"",
+            "in": "header",
+            "name": "PSU-Device-ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/paymentInstruction"
+              }
+            }
+          },
+          "description": "Payment instruction containing information about the payment.",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/paymentPayload"
+                }
+              }
+            },
+            "description": "Payment initiation created.",
+            "headers": {
+              "Location": {
+                "description": "The absolute URL where the resource can be found.",
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\nExample causes\n* Setting value of a parameter in provided \"Template\" with incorrect format.\n*  Not including required input parameters, such as 'Accept' header."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Creates a payment initiation",
+        "x-codegen-request-body-name": "paymentInstruction"
+      }
+    },
+    "/payments/{paymentProduct}/{paymentId}": {
+      "delete": {
+        "description": "Cancels the addressed payment if received before cut-off time for payment product. SCA by customer is not required.\n\nThe successful response to a deletion of a payment falls into three categories depending on&#58; payment product type; signed by customer or not; and the status in the payment process system.\n* Payment is deleted immediately. This response for this is the http code 204 No Content.\n* Payment is deleted asynchronosly. The response for this is the http code 202 Accepted. The client must then check the status of the payment. If the payment status switches to CANC (within a few minutes), then the payment has been deleted.\n* Payment cannot be deleted. The response for this is the http code 202 Accepted. The client must then check the status of the payment. If the payment status does not switch to CANC (within a few minutes), then the payment cannot be cancelled. Additional delete requests will not cancel the payment.\n* On some errors - such as trying to delete an already rejected payment a 400 Input Error status can be received. See responses.",
+        "parameters": [
+          {
+            "description": "Describes which payment product this call is in reference to. Needs to match whichever payment you are requesting information for. Example value \"swedish-domestic-private-bankgiros\"",
+            "in": "path",
+            "name": "paymentProduct",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "id of the payment initation",
+            "in": "path",
+            "name": "paymentId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cancelPaymentStatus"
+                }
+              }
+            },
+            "description": "Deletion request was accepted. Please check the status of the payment. Transaction status CANC indicates that the payment is successfully deleted.",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "204": {
+            "content": { },
+            "description": "Immediate payment deletion was successful",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\nExample causes include\n*  Attempting to delete a rejected payment\n*  Not including required input parameters, such as 'Accept' header.\n*  Requesting information for a customer without appropriate access."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n* Requesting a non-existent payment or payment product.\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues.\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Delete the payment initiation."
+      },
+      "get": {
+        "description": "Returns the previously posted payment initiation. Any additional fields that are not part of the chosen payment product will be stripped away.",
+        "parameters": [
+          {
+            "description": "Describes which payment product this call is in reference to. Needs to match whichever payment you are requesting information for. Example value \"swedish-domestic-private-bankgiros\"",
+            "in": "path",
+            "name": "paymentProduct",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "id of the payment initation",
+            "in": "path",
+            "name": "paymentId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/paymentInstruction"
+                }
+              }
+            },
+            "description": "A payment initiaton",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\n\nExample causes include\n\n*  Not including required input parameters, such as 'Accept' header.\n\n*  Requesting information for a customer without appropriate access."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n\n* Requesting a non-existent payment or payment product.\n\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Method Not Allowed.\n\n* This method is currently not available for corporate access, only for payments to private individuals"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues.\n\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Get the payment initiation."
+      }
+    },
+    "/payments/{paymentProduct}/{paymentId}/authorisations": {
+      "get": {
+        "description": "Gets a list of authorisation ids, including any active or previously failed authorisations for a specific payment.",
+        "parameters": [
+          {
+            "description": "Describes which payment product this call is in reference to. Needs to match whichever payment you are requesting information for. Example value \"swedish-domestic-private-bankgiros\"",
+            "in": "path",
+            "name": "paymentProduct",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "id of the payment initation",
+            "in": "path",
+            "name": "paymentId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listAuthorisationsResponse"
+                }
+              }
+            },
+            "description": "A list of the authorisations associated with this payment initiation.",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\n\nExample causes include\n*  Not including required input parameters, such as 'Accept' header.\n*  Requesting information for a customer without appropriate access."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n* Requesting a non-existent payment or payment product.\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues.\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Get a list of authorisations associated with this payment"
+      },
+      "post": {
+        "description": "The payment authorization sub resource is used to sign a single payment with one signature.\n\nWhen the status of the payment is \"RCVD\" and the status response contains a link to \"startAuthorisationWithAuthenticationMethodSelection\" the payment is ready for signing. The response from the \"/status\" call will also contain a list of \"scaMethods\" and the appropriate \"authenticationMethodId\" must be choosen and provided in the request body. There are five authentication methods for payment authorization – “bankIdQr”, “bankIdSameDevice”, “digipass”, “mobiltbankId” and “bankIdOnCard”. Authentication methods depends on customer type (Private/Corporate). \n\nThis will create an authorization resource and the client must then get the authorisation resource in order to proceed with the signing.\n\nIn sandbox environment all signings are mocked and processed within 30 seconds automatically.",
+        "parameters": [
+          {
+            "description": "Describes which payment product this call is in reference to. Needs to match whichever payment you are requesting information for. Example value \"swedish-domestic-private-bankgiros\"",
+            "in": "path",
+            "name": "paymentProduct",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "id of the payment initation",
+            "in": "path",
+            "name": "paymentId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The IP Address of the PSU, as determined in the communication between PSU and TPP, must be provided when POST'ing a payment or authorisation. During other calls supply the value if applicable. Provided in either IPv4 or IPv6 format. Example value \"129.178.88.88\"",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Customer must be redirected to this url after payment authorization is completed. Example value \"https://www.seb.se\"",
+            "in": "header",
+            "name": "TPP-Redirect-URI",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/selectScaMethod"
+              }
+            }
+          },
+          "description": "Json object containing value for selected authentication method.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authorisationResponse"
+                }
+              }
+            },
+            "description": "Authorization is started using the provided authorization method.",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\nExample causes include\n*  Not including required input parameters, such as 'Accept' header.\n* Specifying an unsupported SCA method in request body."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n* Initiating signing for a non-existent payment or payment product.\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Starts a single payment authentication procedure for the end customer.",
+        "x-codegen-request-body-name": "selectScaMethod"
+      }
+    },
+    "/payments/{paymentProduct}/{paymentId}/authorisations/{authorisationId}": {
+      "get": {
+        "description": "When a customer signing is initiated, a corresponding Authorization resource will be created. The client must continuously check the progress of the ongoing signing until scaStatus is either finalized, canceled or failed.\n\nDepending on the chosen scaMethod, the response can contain the following\n* scaRedirect link for digipass, mobiltbankId and bankIdOnCard, containing the url where the PSU should be redirected in order to sign.\n* autoStartToken for bankIdSameDevice, which should be used to trigger the BankId application in accordance with the Bankid relying party guidelines.\n* qrData for bankIdQr, the value should be rendered as a QR code, which the PSU will scan to initiate the signing using bankid.\n\nIn the case of qrData, the client needs to call this endpoint every second to retrieve new QR code content, and then display an updated QR code to the PSU. For other scaMethods we recommend polling at most every second, and no less than every five seconds.\n\nFor scaMethods bankIdQr and bankIdSameDevice it is possible that at some point a scaRedirect link will be returned. The presence of this scaRedirect link indicates that the PSU is required to complete a second verification step to authorize the payment, and the client should redirect the PSU to the provided url.\n\nThe scaStatus field can have the following values\n* received -> Authorization is created, but not ready to be signed yet.\n* started -> Signing is initialized and the PSU should sign.\n* finalized -> Signing has finished successfully.\n* canceled -> The PSU chose to cancel the signing operation.\n* failed -> Signing has ended unsuccessfully, e.g. due to timeout.\n\nIn sandbox environment all signings are mocked and processed within 30 seconds automatically. For redirect signing in sandbox \"scaRedirect\" link is not real. To trigger a second verification step in sandbox, sign a payment with an amount higher than 10 000 in any currency and the additional scaRedirect link will be present in the response.",
+        "parameters": [
+          {
+            "description": "Describes which payment product this call is in reference to. Needs to match whichever payment you are requesting information for. Example value \"swedish-domestic-private-bankgiros\"",
+            "in": "path",
+            "name": "paymentProduct",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "id of the payment initation",
+            "in": "path",
+            "name": "paymentId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "id of the authorization resource",
+            "in": "path",
+            "name": "authorisationId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The IP Address of the PSU, as determined in the communication between PSU and TPP, must be provided when POST'ing a payment or authorisation. During other calls supply the value if applicable. Provided in either IPv4 or IPv6 format. Example value \"129.178.88.88\"",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authorisationResponse"
+                }
+              }
+            },
+            "description": "An authorization object",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\n\nExample causes include\n*  Not including required input parameters, such as 'Accept' header.\n*  Requesting information for a customer without appropriate access."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n* Requesting a non-existent payment, authorisation or payment product.\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Get authorization resource"
+      }
+    },
+    "/payments/{paymentProduct}/{paymentId}/status": {
+      "get": {
+        "description": "During the payment initiation the payment systems will process payment data asynchronously.\nThe consumer of the API must continuously check the status of the payment to make sure that the payment is ready for the next step in the payment process.\nThe status request uses the payment id value that was returned in the Location header when posting the payment data.\n\n\nThe transaction status can have the following states\n\n* RCVD, Received, The payment has been received by SEB. To determine if payment is ready for signing, check the links block. Recommended polling interval is 5 seconds;\n* RCVD + link, Received, If \"startAuthorisationWithAuthenticationMethodSelection\" link is shown, the payment system has validated the payment. Please post authenticationMethodId to suitable authorisations endpoint to continue payment flow.\n* ACTC, AcceptedTechnicalValidation, AcceptedCustomerProfile, The payment initiation is signed and stored for execution and should be executed on the desired execution date.\n* ACSC, AcceptedSettlementCompleted,  The payment has been executed on the desired date.\n* CANC, Cancelled, The payment has been cancelled and will not be executed\n* RJCT, Rejected, The payment initiation failed. Additional information may be supplied to explain why the payment could not be made. A failed payment cannot be corrected, it has to be posted again as a new payment.\n\n\nPayments must be signed by the customer (i.e. through Mobilt BankID) before the payment is executed.\nThis step can be initiated once the associated authentication link is visible in the status endpoint.\nThe payments can either be signed one by one by creating an authorisations sub-resource under the payment; or multiple payments\ncan be signed at once by creating a signing basket (with a group of payment ids) and then creating an authorisations sub-resource\nunder the signing basket.",
+        "parameters": [
+          {
+            "description": "Describes which payment product this call is in reference to. Needs to match whichever payment you are requesting information for. Example value \"swedish-domestic-private-bankgiros\"",
+            "in": "path",
+            "name": "paymentProduct",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "id of the payment initation",
+            "in": "path",
+            "name": "paymentId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/paymentStatus"
+                }
+              }
+            },
+            "description": "A payments status",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\n\nExample causes include\n*  Not including required input parameters, such as 'Accept' header.\n*  Requesting information for a customer without appropriate access."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n* Requesting a non-existent payment or payment product.\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Payment initiation status"
+      }
+    },
+    "/signing-baskets": {
+      "post": {
+        "description": "The signing basket is used to sign multiple payments with one signature. First create a signing basket containing the payment ids that should be signed. The response will contain a list of available SCA methods that can be used to sign the payments. Then create an authorisation sub resource using the selected payment SCA method.",
+        "parameters": [
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/signingBasketRequest"
+              }
+            }
+          },
+          "description": "Object containing array of paymentIds",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/signingBasketResponse"
+                }
+              }
+            },
+            "description": "A signing basket is created for provided payment-ids.",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\nExample causes include\n*  Not including required input parameters, such as 'Accept' header.\n* Specifying a payment that can not be signed, or does not exist in request body."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n* Initiating signing for non-existent payment ID or payment product.\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Starts a multiple payment authentication procedure for the end customer. Creates a signing basket containing payment ids in the request body.",
+        "x-codegen-request-body-name": "Signing basket request body"
+      }
+    },
+    "/signing-baskets/{basketId}": {
+      "get": {
+        "description": "Returns the which payments are part of the signing basket and the overall transaction status.\n\nThe transaction status can be\n* RJCT - This basket can no longer be used to sign for the payments (e.g. it contains a payment that has been rejected). Please create a new basket with the relevant payments.\n* RCVD - The basket is ready for signing.\n* ACTC - All payments in the basket are signed and will be executed.",
+        "parameters": [
+          {
+            "description": "id of the basket resource",
+            "in": "path",
+            "name": "basketId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/signingBasketResponse"
+                }
+              }
+            },
+            "description": "Information on a basket-id",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\nExample causes include\n\n*  Not including required input parameters, such as 'Accept' header."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n\n* Requesting a non-existent signing basket.\n\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "405": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Method Not Allowed.\n\n* This method is currently not available for corporate access, only for signing of payments to private individuals"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues\n\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Returns information on a signing basket."
+      }
+    },
+    "/signing-baskets/{basketId}/authorisations": {
+      "post": {
+        "description": "Selects and starts the authentication procedure for the end customer. The selected SCA method id is sent in the request. There are five authentication methods for payment authorization – “bankIdQr”, “bankIdSameDevice”, “digipass”, “mobiltbankId” and “bankIdOnCard”. Authentication methods depends on customer type (Private/Corporate). If the basket contains any rejected payments or only unsignable payments the request will be rejected.\n\nPayment ids that are about to signed will be returned in the response and this list may differ from all the payments in the payment basket. Payments that are already in the middle of the signing process and already signed payments will be excluded from the created authorization resource. As such the created authorization might not contain all payments in the basket, so please check the \"paymentIds\" field. \n\nThis will create an authorization resource and the client must then get the authorisation resource in order to proceed with the signing.\n\nIn sandbox environment all signings are mocked and processed within 30 seconds automatically.",
+        "parameters": [
+          {
+            "description": "id of the basket resource",
+            "in": "path",
+            "name": "basketId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The IP Address of the PSU, as determined in the communication between PSU and TPP, must be provided when POST'ing a payment or authorisation. During other calls supply the value if applicable. Provided in either IPv4 or IPv6 format. Example value \"129.178.88.88\"",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Customer must be redirected to this url after payment authorization is completed. Example value \"https://www.seb.se\"",
+            "in": "header",
+            "name": "TPP-Redirect-URI",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/selectScaMethod"
+              }
+            }
+          },
+          "description": "Json object containing value for selected authentication method.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authorisationResponse"
+                }
+              }
+            },
+            "description": "Authorization is started using the provided authorization method.",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\nExample causes include\n*  Not including required input parameters, such as 'Accept' header.\n* Specifying an unsupported SCA method in request body.\n*  Requesting information for a customer without appropriate access."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n* Initiating signing for non-existent signing basket.\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Selects a SCA (Strong Customer Authentication) method and creates an authorization for payments in the basket. The end customer should sign the payment using this method.",
+        "x-codegen-request-body-name": "selectScaMethod"
+      }
+    },
+    "/signing-baskets/{basketId}/authorisations/{authorisationId}": {
+      "get": {
+        "description": "When a customer signing is initiated, a corresponding Authorization resource will be created. The client must continuously check the progress of the ongoing signing until scaStatus is either finalized, canceled or failed. \n\nPayment ids that are about to signed will be returned in the response. Payments that are already in the middle of the signing process and already signed payments will be excluded from the created authorization resource.\nAs such the created authorization might not contain all payments in the basket, so please check the \\\"paymentIds\\\" field.\n\nDepending on the chosen scaMethod, the response can contain the following\n* scaRedirect link for digipass, mobiltbankId and bankIdOnCard, containing the url where the PSU should be redirected in order to sign.\n* autoStartToken for bankIdSameDevice, which should be used to trigger the BankId application in accordance with the Bankid relying party guidelines.\n* qrData for bankIdQr, the value should be rendered as a QR code, which the PSU will scan to initiate the signing using bankid.\n\nIn the case of qrData, the client needs to call this endpoint every second to retrieve new QR code content, and then display an updated QR code to the PSU. For other scaMethods we recommend polling at most every second, and no less than every five seconds.\n\nFor scaMethods bankIdQr and bankIdSameDevice it is possible that at some point a scaRedirect link will be returned. The presence of this scaRedirect link indicates that the PSU is required to complete a second verification step to authorize the payment, and the client should redirect the PSU to the provided url.\n\nThe scaStatus field can have the following values\n\n* received -> Authorization is created, but not ready to be signed yet.\n* started -> Signing is initialized and the PSU should sign.\n* finalized -> Signing has finished successfully.\n* canceled -> The PSU chose to cancel the signing operation.\n* failed -> Signing has ended unsuccessfully, e.g. due to timeout.\n\nIn sandbox environment all signings are mocked and processed within 30 seconds automatically. For redirect signing in sandbox \\\"scaRedirect\\\" link is not real. To trigger a second verification step in sandbox, sign a payment with an amount higher than 10 000 in any currency and the additional scaRedirect link will be present in the response.\"",
+        "parameters": [
+          {
+            "description": "id of the basket resource",
+            "in": "path",
+            "name": "basketId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "id of the authorization resource",
+            "in": "path",
+            "name": "authorisationId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Accepted content types.",
+            "in": "header",
+            "name": "Accept",
+            "required": true,
+            "schema": {
+              "enum": [
+                "application/json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Parameter is either an optional request identification id or a payment reference identification used when initiatating a payment. Parameter is set by the third party. Duplicate value on payment reference identification is not allowed. If stated in the request it will be returned in the response.\nID of the request, unique to the call, as determined by the initiating party. Same value will be returned in each successful call. Duplicate values being used will lead to errors in payment creation.\nExample value \"ccae853f-4f23-47a3-bd9b-6f6e75a1d3d2\"",
+            "in": "header",
+            "name": "X-Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The IP Address of the PSU, as determined in the communication between PSU and TPP, must be provided when POST'ing a payment or authorisation. During other calls supply the value if applicable. Provided in either IPv4 or IPv6 format. Example value \"129.178.88.88\"",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Include in any request aimed at accessing corporate accounts or corporate payment types. This is either the 14 digit SEB identifier for the company or the 10 digit organization number. When this header is included all tasks will be performed for this corporation based on the PSU having access rights. Note that this header shall not be present when accessing payment endpoints for private accounts.",
+            "in": "header",
+            "name": "PSU-Corporate-Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Contains the Bearer Token for OAuth 2.0. Example value \"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1d_etc\"",
+            "in": "header",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authorisationResponse"
+                }
+              }
+            },
+            "description": "A payments status",
+            "headers": {
+              "X-Request-ID": {
+                "description": "Same value that was provided in the request.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Error caused by bad input data.\n\nExample causes include\n*  Not including required input parameters, such as 'Accept' header.\n*  Requesting information for a customer without appropriate access."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Not found.\n* Requesting a non-existent signing basket or authorisation.\n* Requesting incorrectly constructed URLs will return this error"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            },
+            "description": "Internal server error.\n* Error caused by remote technical issues, this status code is used for unforeseen technical issues\n* Please contact support and include information from the instance field."
+          },
+          "503": {
+            "content": { },
+            "description": "Service unavailable.\n* Returned when service is unavailable due to scheduled reasons, such as maintenance."
+          }
+        },
+        "summary": "Get authorization resource"
+      }
+    }
+  },
+  "servers": [
+    {
+      "x-environment": "sandbox",
+      "url": "https://api-sandbox.sebgroup.com/pis/v8/identified2"
+    },
+    {
+      "x-environment": "production",
+      "url": "https://tpp-api.sebgroup.com/tpp/pis/v8/identified2"
+    }
+  ],
+  "tags": [
+    {
+      "name": "PSD2"
+    }
+  ],
+  "x-ibm-configuration": {
+    "assembly": {
+      "catch": [ ],
+      "execute": [
+        {
+          "operation-switch": {
+            "case": [
+              {
+                "operations": [
+                  {
+                    "path": "/payments/{paymentProduct}",
+                    "verb": "post"
+                  },
+                  {
+                    "path": "/payments/{paymentProduct}/{paymentId}/authorisations",
+                    "verb": "post"
+                  },
+                  {
+                    "path": "/signing-baskets/{basketId}",
+                    "verb": "post"
+                  },
+                  {
+                    "path": "/signing-baskets/{basketId}/authorisations",
+                    "verb": "post"
+                  },
+                  {
+                    "path": "/signing-baskets",
+                    "verb": "post"
+                  },
+                  {
+                    "path": "/payments/{paymentProduct}/{paymentId}",
+                    "verb": "delete"
+                  },
+                  {
+                    "path": "/payments/mock/resetall",
+                    "verb": "patch"
+                  }
+                ]
+              },
+              {
+                "operations": [
+                  {
+                    "path": "/payments/{paymentProduct}/{paymentId}/authorisations",
+                    "verb": "get"
+                  },
+                  {
+                    "path": "/payments/{paymentProduct}/{paymentId}",
+                    "verb": "get"
+                  },
+                  {
+                    "path": "/payments/{paymentProduct}/{paymentId}/status",
+                    "verb": "get"
+                  },
+                  {
+                    "path": "/payments/{paymentProduct}/{paymentId}/authorisations/{authorisationId}",
+                    "verb": "get"
+                  },
+                  {
+                    "path": "/signing-baskets/{basketId}/authorisations/{authorisationId}",
+                    "verb": "get"
+                  },
+                  {
+                    "path": "/signing-baskets/{basketId}",
+                    "verb": "get"
+                  }
+                ]
+              }
+            ],
+            "otherwise": [ ],
+            "title": "operation-switch",
+            "version": "1.0.0"
+          }
+        },
+        {
+          "gatewayscript": {
+            "source": "const content=apim.getvariable(\"message.headers.content-type\");\nif(content!=null&&content.indexOf(\"json\")!=-1){\n    apim.setvariable(\"message.headers.content-type\",\"application/json\");\n}",
+            "title": "gatewayscript",
+            "version": "1.0.0"
+          }
+        },
+        {
+          "activity-log": {
+            "content": "payload",
+            "error-content": "payload",
+            "title": "activity-log",
+            "version": "1.0.0"
+          }
+        }
+      ]
+    },
+    "catalogs": {
+      "acc": {
+        "properties": {
+          "creator-host": "payment-creator-hydra-psd2-v2-stage.cumulus.sebank.se",
+          "information-host": "payment-information-hydra-psd2-v2-stage.cumulus.sebank.se"
+        }
+      },
+      "dev": {
+        "properties": {
+          "creator-host": "payment-creator-hydra-psd2-v2-dev.cumulus.sebank.se",
+          "information-host": "payment-information-hydra-psd2-v2-dev.cumulus.sebank.se"
+        }
+      },
+      "tst": {
+        "properties": {
+          "creator-host": "payment-creator-hydra-psd2-v2-test.cumulus.sebank.se",
+          "information-host": "payment-information-hydra-psd2-v2-test.cumulus.sebank.se"
+        }
+      }
+    },
+    "cors": {
+      "enabled": true
+    },
+    "enforced": true,
+    "phase": "realized",
+    "properties": {
+      "creator-host": {
+        "description": "Host name",
+        "encoded": false,
+        "value": "payment-creator-hydra-psd2-v2-prod.stratus.sebank.se"
+      },
+      "information-host": {
+        "description": "",
+        "encoded": false,
+        "value": "payment-information-hydra-psd2-v2-prod.stratus.sebank.se"
+      }
+    },
+    "testable": true
+  }
+}
