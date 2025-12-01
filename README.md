@@ -26,6 +26,7 @@ The purpose is **learning**, not production readiness.
 - ✅ Add Swagger/OpenAPI parsing for .yaml, .yml, .json
 - ✅ Extract basic metadata (title, version, paths, operations)
 - ✅ Create /rules folder and add initial guideline documents
+- ✅ Add OpenAI embedding integration and working test endpoint
 - ❌ Embed rule documents and store them in ChromaDB
 - ❌ Implement vector search to retrieve the most relevant rules
 - ❌ Add support for calling an LLM (cloud first, Ollama optional)
