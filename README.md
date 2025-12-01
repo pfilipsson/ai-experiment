@@ -27,8 +27,8 @@ The purpose is **learning**, not production readiness.
 - ✅ Extract basic metadata (title, version, paths, operations)
 - ✅ Create /rules folder and add initial guideline documents
 - ✅ Add OpenAI embedding integration and working test endpoint
-- ❌ Embed rule documents and store them in ChromaDB
-- ❌ Implement vector search to retrieve the most relevant rules
+- ✅ Embed rule documents and store them in vector store (in-memory)
+- ✅ Implement vector search to retrieve the most relevant rules
 - ❌ Add support for calling an LLM (cloud first, Ollama optional)
 - ❌ Build prompt combining: API metadata + retrieved rules
 - ❌ Generate structured analysis (issues, warnings, improvements)
@@ -72,8 +72,9 @@ ai-experiment/
 ### Backend
 - Java 21+ (OpenJDK)
 - Spring Boot
+- Spring AI (OpenAI integration)
 - Swagger Parser (OpenAPI 3)
-- ChromaDB (local mode)
+- In-memory Vector Store (for development/learning)
 - Retrieval-Augmented Generation (RAG)
 - LLM provider integration (cloud or local)
 
@@ -188,6 +189,97 @@ With absolute path:
 curl -F "file=@/full/path/to/ai-experiment/samples/example.yml"      http://localhost:8080/api/upload
 ```
 
+## 🔍 Testing the RAG System
+
+The backend includes a **vector search** system for finding relevant API guidelines.
+
+### Environment Setup
+
+Set your OpenAI API key:
+
+```bash
+export OPENAI_API_KEY="sk-your-api-key-here"
+```
+
+### ✅ Reindex Rules
+
+Load and embed all rule documents from the `/rules` directory:
+
+```bash
+# Reindex all rules
+curl -X POST http://localhost:8080/api/rules/reindex
+
+# Response
+{
+  "message": "Successfully indexed 45 rule chunks from 7 files"
+}
+```
+
+This command:
+- Reads all `.md` files from `../rules/`
+- Splits them into chunks
+- Generates embeddings using OpenAI
+- Stores them in the in-memory vector store
+
+### ✅ Search for Relevant Rules
+
+Search for rules using natural language queries:
+
+```bash
+# Search for naming conventions (pretty output with jq)
+curl -s "http://localhost:8080/api/rules/search?query=naming+conventions&topK=3" | jq '.'
+
+# Search for error handling
+curl -s "http://localhost:8080/api/rules/search?query=error+handling&topK=5" | jq '.'
+
+# Search for versioning best practices
+curl -s "http://localhost:8080/api/rules/search?query=API+versioning&topK=3" | jq '.'
+
+# Search for BIM keys (domain-specific)
+curl -s "http://localhost:8080/api/rules/search?query=BIM+keys&topK=3" | jq '.'
+```
+
+**Example Response:**
+
+```json
+[
+  {
+    "fileName": "naming.md",
+    "text": "Use lowercase with hyphens for path segments...",
+    "similarity": 0.87
+  },
+  {
+    "fileName": "versioning.md",
+    "text": "Include version in URL path: /v1/resource...",
+    "similarity": 0.82
+  }
+]
+```
+
+### Useful Search Commands
+
+```bash
+# Show only fileName and first 100 chars
+curl -s "http://localhost:8080/api/rules/search?query=naming&topK=3" | \
+  jq '.[] | {fileName, preview: (.text | .[0:100])}'
+
+# Get only the most relevant result
+curl -s "http://localhost:8080/api/rules/search?query=error+codes&topK=1" | jq '.[0]'
+
+# Count results
+curl -s "http://localhost:8080/api/rules/search?query=security&topK=10" | jq 'length'
+```
+
+**Install jq** (for pretty JSON):
+
+```bash
+# macOS
+brew install jq
+
+# Ubuntu/Debian
+sudo apt install jq
+```
+
 ## 🤖 LLM Setup: Cloud vs Local (Ollama)
 
 This project supports **two modes** for the analysis step.
@@ -228,8 +320,8 @@ Good for offline experiments.
 | Java | 21 or 25 | `java -version` |
 | Maven | 3.x | `mvn -v` |
 | Node | 18+ | `node -v` |
-| ChromaDB | 0.5.x | `chroma --version` |
 | Git | Latest | `git --version` |
+| jq (optional) | Latest | `jq --version` |
 
 ### 2. Clone the Repository
 
@@ -240,12 +332,12 @@ cd ai-experiment
 
 ## 🔍 How the Analysis Works
 
-1. Rule documents in `/rules/` are embedded into ChromaDB.
+1. Rule documents in `/rules/` are embedded into an in-memory vector store.
 2. User uploads a Swagger/OpenAPI spec through the frontend.
 3. Backend:
    - Parses YAML or JSON
    - Extracts operations, schemas, paths
-   - Retrieves relevant rules via vector search
+   - Retrieves relevant rules via vector search (semantic similarity)
    - Builds an LLM prompt using RAG context
    - Receives a structured analysis
 4. Frontend displays:

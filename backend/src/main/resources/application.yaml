@@ -25,3 +25,6 @@ spring:
       embedding:
         options:
           model: text-embedding-3-small
+
+rules:
+  path: ../rules
