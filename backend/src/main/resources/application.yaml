@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+llm:
+  mode: cloud
+  provider: claude
+
+ollama:
+  model: "mistral:7b-instruct-q4"
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-5
+          temperature: 1
