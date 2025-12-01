@@ -1,17 +1,26 @@
 package com.ai.experiment.services;
 
 import com.ai.experiment.dto.OpenApiMetadata;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OpenApiService {
 
-  public OpenApiMetadata parseFile(File file) {
+  private final ChatClient chatClient;
+
+  public OpenApiService(ChatModel chatModel) {
+    this.chatClient = ChatClient.builder(chatModel).build();
+  }
+
+  public OpenApiMetadata parseFile(File file) throws JsonProcessingException {
     OpenAPI openAPI = new OpenAPIV3Parser().read(file.getAbsolutePath());
 
     if (openAPI == null) {
@@ -50,6 +59,15 @@ public class OpenApiService {
               });
     }
 
-    return new OpenApiMetadata(file.getName(), title, version, pathCount, operations);
+    String json = io.swagger.v3.core.util.Json.mapper().writeValueAsString(openAPI);
+
+    return new OpenApiMetadata(file.getName(), title, version, pathCount, operations, json);
+  }
+
+  public String sendQueryToChatClient(OpenApiMetadata metadata) {
+    return chatClient
+        .prompt("Generate a summary for the following OpenAPI specification: " + metadata.content())
+        .call()
+        .content();
   }
 }

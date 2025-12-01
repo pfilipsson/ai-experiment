@@ -28,4 +28,20 @@ public class UploadController {
 
     return metadata;
   }
+
+  @PostMapping(value = "/query", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public String queryFile(@RequestParam("file") MultipartFile file) throws Exception {
+
+    // Save temporarily
+    File temp = File.createTempFile("upload-", file.getOriginalFilename());
+    file.transferTo(temp);
+
+    // Parse and extract metadata
+    OpenApiMetadata metadata = openApiService.parseFile(temp);
+    String answer = openApiService.sendQueryToChatClient(metadata);
+
+    temp.delete(); // optional
+
+    return answer;
+  }
 }
