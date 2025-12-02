@@ -1,5 +1,7 @@
 package com.ai.experiment.dto;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.models.OpenAPI;
 import java.util.*;
 
@@ -8,7 +10,8 @@ public record ApiMetadata(
     String version,
     Map<String, List<String>> paths,
     List<String> schemas,
-    List<String> securitySchemes) {
+    List<String> securitySchemes,
+    String contentJson) {
   public static ApiMetadata from(OpenAPI api) {
 
     Map<String, List<String>> ops = new LinkedHashMap<>();
@@ -34,7 +37,15 @@ public record ApiMetadata(
             ? new ArrayList<>(api.getComponents().getSecuritySchemes().keySet())
             : List.of();
 
+    String json;
+    try {
+      json = Json.mapper().writeValueAsString(api);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
+
+
     return new ApiMetadata(
-        api.getInfo().getTitle(), api.getInfo().getVersion(), ops, schemaNames, security);
+        api.getInfo().getTitle(), api.getInfo().getVersion(), ops, schemaNames, security, json);
   }
 }
