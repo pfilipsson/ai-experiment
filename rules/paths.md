@@ -1,56 +1,29 @@
-# Path & Operation Rules
+(PATH, STRUCTURE) Paths MUST start with a leading forward slash (/).
+(PATH, STRUCTURE) Paths MUST NOT end with a trailing slash (/).
+(PATH, STRUCTURE) Paths SHOULD follow a hierarchical structure representing resources.
+(PATH, STRUCTURE) Paths SHOULD avoid unnecessary nesting beyond three levels.
+(PATH, STRUCTURE) Paths MUST NOT include file extensions (e.g., .json, .xml).
 
-## General REST Path Structure
-- Paths must start with a noun, all lowercase.
-- Use plural nouns for collections (`/accounts`).
-- Use singular with path parameters for specific resources (`/accounts/{accountId}`).
-- No verbs in paths.
+(PATH, NAMING) Path segments MUST use lowercase letters.
+(PATH, NAMING) Path segments MUST use hyphens to separate words.
+(PATH, NAMING) Path segments MUST NOT use underscores.
+(PATH, NAMING) Path segments MUST NOT use uppercase letters.
+(PATH, NAMING) Path segments MUST NOT use camelCase or PascalCase.
+(PATH, NAMING) Path segments SHOULD use descriptive nouns.
+(PATH, NAMING) Path segments MUST use plural nouns when representing collections.
 
-## HTTP Verb Semantics
-- GET: fetch data, no side effects.
-- POST: create a new resource.
-- PUT: full update.
-- PATCH: partial update.
-- DELETE: remove resource.
+(PATH, PARAMETERS) Path parameters MUST be surrounded by curly braces (e.g., {accountId}).
+(PATH, PARAMETERS) Path parameters MUST use camelCase.
+(PATH, PARAMETERS) Path parameters MUST NOT use snake_case or kebab-case.
+(PATH, PARAMETERS) Path parameters MUST be descriptive and reflect the resource identifier.
+(PATH, PARAMETERS) Path parameters SHOULD avoid single-character names (e.g., {x}).
+(PATH, PARAMETERS) Path parameters representing UUIDs SHOULD be named id or {resourceId} (e.g., accountId).
 
-## Path Parameters
-- Must be defined in the `parameters` section.
-- Must match exactly (case-sensitive).
-- Must use camelCase (e.g., `transactionId`, not `transaction_id`).
+(PATH, CONSISTENCY) Resources MUST use consistent naming across the entire API.
+(PATH, CONSISTENCY) The same resource MUST NOT appear with different names in different endpoints.
+(PATH, CONSISTENCY) Nested resources MUST follow standard parent-child patterns (e.g., /accounts/{accountId}/transactions).
+(PATH, CONSISTENCY) The structure of collection and item paths MUST be consistent across all resources.
 
-## Filtering and Pagination
-- Use standard query parameters:
-  - `limit`
-  - `offset`
-  - `page`
-  - `pageSize`
-  - `fromDate`, `toDate`
-- No custom names like `maxItems`, `skip`, `take`.
-
-## Response Consistency
-- GET collection must return:
-  - an array  
-  - pagination metadata if applicable  
-
-Example:
-
-```json
-{
-  "items": [...],
-  "total": 123,
-  "page": 1,
-  "pageSize": 25
-}
-```
-
-## Versioning in Path (if used)
-- Must use leading `v`:
-  - `/v1/accounts`
-- Only major version is allowed in path.
-
-## No Trailing Slashes
-- `/accounts` is correct.
-- `/accounts/` is incorrect.
-
-## No File Extensions
-- Do not use `.json`, `.yaml`, etc. in URLs.
+(PATH, ACTIONS) Paths MUST represent resources, not actions.
+(PATH, ACTIONS) RPC-style verbs MUST NOT appear in paths (e.g., /getBalance, /createUser).
+(PATH, ACTIONS) Non-resource actions SHOULD be expressed u
