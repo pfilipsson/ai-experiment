@@ -44,7 +44,6 @@ public record ApiMetadata(
       throw new RuntimeException(e);
     }
 
-
     return new ApiMetadata(
         api.getInfo().getTitle(), api.getInfo().getVersion(), ops, schemaNames, security, json);
   }
