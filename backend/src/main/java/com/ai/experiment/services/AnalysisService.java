@@ -26,11 +26,27 @@ public class AnalysisService {
 
     List<RelevantRule> naming = ruleIndexService.findRelevantRules("naming rules", 5);
 
+    System.out.println("Naming Rules:");
+    for (RelevantRule rule : naming) {
+      System.out.println("- " + rule.text());
+    }
+
     List<RelevantRule> version = ruleIndexService.findRelevantRules("versioning rules", 5);
 
+    System.out.println("Versioning Rules:");
+    for (RelevantRule rule : version) {
+      System.out.println("- " + rule.text());
+    }
+
     List<RelevantRule> errors = ruleIndexService.findRelevantRules("error handling rules", 5);
+    System.out.println("Error Handling Rules:");
+    for (RelevantRule rule : errors) {
+      System.out.println("- " + rule.text());
+    }
 
     String prompt = PromptBuilder.build(meta, naming, version, errors);
+
+    System.out.println("Generated Prompt:\n" + prompt);
 
     String llmResponse = chatModel.call(prompt);
 
