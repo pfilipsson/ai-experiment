@@ -112,6 +112,16 @@ Available at:
 http://localhost:8080
 ```
 
+### ✔ Running the frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The server should startup on `http://localhost:5173`
+ 
+
 ### ✔ Health check
 
 ```
@@ -201,3 +211,4 @@ cd ai-experiment
 - Swagger diffing  
 - Rule plugins  
 - Export reports  
+ 
